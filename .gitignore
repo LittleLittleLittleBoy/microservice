@@ -1,4 +1,6 @@
-.idea/*
 *.class
 */target/*
-
+.idea/*
+.idea*
+\.idea*
+*/\.idea/*
