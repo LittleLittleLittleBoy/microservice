@@ -3,6 +3,7 @@ package cn.edu.nju.candleflame.microservice.cloud_client_ribbon;
 import cn.edu.nju.candleflame.microservice.cloud_client_ribbon.config.RibbonConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.ribbon.RibbonClients;
@@ -15,8 +16,13 @@ import org.springframework.web.client.RestTemplate;
  * 并且在 application.properties中配置Eureka地址、应用名称、访问端口等基本信息。
  */
 
+/**
+ * EnableCircuitBreaker 开启熔断器
+ */
+
 @EnableDiscoveryClient
 @SpringBootApplication
+@EnableCircuitBreaker
 /**
  * 使用RibbonClients注解对所有服务的负载策略配置生效
  */

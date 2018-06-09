@@ -38,7 +38,9 @@
 	Spring Cloud Netflix 是 Spring Cloud 的子项目之一， 主要内容是对 Netflix 公司一系列开源产品的包装， 它为 Spring Boot 应用提供了自配置的 Netflix Oss 整合。 通过一些简单的注解， 开发者就可以快速地 在应用中配置一些常用模块井构建庞大的分布式系统。 它主要提供的模块包括：服务发现（ Eureka ）、断路器（ Hystrix ） 、智能路由（ Zuul ） 、客户端负载均衡（ Ribbon ） 等。
 	
 	* cloud_eureka 注册中心:添加依赖，在SpringBoot入口添加EnableEurekaServer将本应用变为Eureka服务器
+	
 	* cloud_server 注册服务:添加依赖，在SpringBoot入口添加EnableDiscoveryClient注解开启DiscoveryClient的实例，与 Eureka Server 进行交互， 负责注册服务、租约续期、检索服务、取消 租约等功能。
+	
 	* cloud_client 调用服务:模块之间是通过HTTP协议暴露服务的，调用服务通过类似JDK的 URLConnection或Spring的RestTemplate(HTTP客户端)便可
 		
 		* 使用Ribbon:
@@ -57,3 +59,61 @@
 			4. 编写调用接口
 			5. 配置Fegin服务
 			6. 调用服务
+	* cloud_getway：spring cloud提供了Zuul作为服务网关，Zuul与Dubbo服务网关不同的是，Zuul不是直接调用程序俄日是通过动态路由提供代理服务
+		
+		1. 新建cloud_getway模块,添加依赖
+		2. SpringBoot入口处开启Zuul支持
+		3. 在application.properties配置Zuul，设置拦截请求的路径和分组标识
+		4. 继承ZuulFilter实现过滤功能，进行过滤器权限验证
+		5. 在程序入口处注入该过滤器让他生效
+	
+	* Hystrix断路器
+		
+		Dubbo 通过 mock 实现服务降级与容错，而 Spring Cloud 则提供 Hystrix 达到同样 的目的。与之不同的是 Hystrix 是以框架级别角度解决该问题，而mock则是以功能角度出发。
+
+		Hystrix 通过线程油来隔离资源，在使用时会根据调用的远程服务划分出多个线程池。 例如调用产品 服务的 Command 放入 A 线程池，调用账户服务的 Command 放入 B 线程池。 当调用服务的代码存在 bug 或者由于其他原因导致自己所在线程池被耗尽时，不会对系统的其他服务造成影响。
+			
+		* 使用Ribbon：
+			
+			1. 添加依赖
+			2. SpringBoot入口处开启hystrix支持 @EnableCircuitBreaker
+			3. 调用服务设置@HystrixCommand
+			4. 在application.properties配置熔断器
+		* 使用Feign:
+			1. 添加依赖
+			2. SpringBoot入口处开启hystrix支持 @EnableCircuitBreaker
+			3. Feign是使用接口确定调用信息，回调类只需实现接口就可以，与Dubbo的mock类似，编写回调类
+			4. 在FeignClient的配置中设置fallback：当前接口的实现类
+			5. 在application.properties设置熔断器
+	* cloud_admin：服务监控
+
+		1. 添加依赖
+		2. 开启admin支持@EnableAdminServer
+		3. 配置文件配置admin
+		4. 配置客户端，所有eureka应用在pom.xml文件里面build设置暴露应用基本信息
+	
+	* 应用监控:对单个应用进行监控
+		
+		1. 添加依赖Jolokia
+		2. 在application.properties文件配置权限management.security.enabled=false，我只在cloud_client_feign里面配置了，可以通过url查看应用信息
+	
+	* 熔断器监控
+		
+		1. 单应用的熔断数据
+
+			1. 添加依赖
+			2. 开启Hystrix面板@EnableHystrix、@EnableHystrixDashboard
+			3. 浏览器输入localhost:xxx/hystrix localhost:xxx/hystrix.stream 查看
+		2. 	使用Turbine聚合数据
+
+			cloud_turbine: 负责集合所有的hystrix.stream数据，为了分担压力将Turbine独立成一个新的应用。
+			
+			1. 添加依赖
+			2. 在SpringBoot入口处开启Turbine @EnableTurbine
+			3. 配置Turbine参数
+			4. 浏览器输入http://127.0.0.1:***/turbine.stream查看全部的数据流
+			
+		3. CloudAdmin整合Turbine
+
+			1. 添加依赖
+			2. 设置

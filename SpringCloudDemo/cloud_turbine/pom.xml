@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.edu.nju.candleflame.microservice</groupId>
-    <artifactId>cloud_client_ribbon</artifactId>
+    <artifactId>cloud_turbine</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>cloud_client_ribbon</name>
+    <name>cloud_turbine</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
@@ -22,10 +22,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
+        <spring-cloud.version>Dalston.RELEASE</spring-cloud.version>
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka-server</artifactId>
@@ -39,18 +40,14 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-feign</artifactId>
+            <artifactId>spring-cloud-starter-turbine</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-ribbon</artifactId>
+            <artifactId>spring-cloud-netflix-turbine</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -66,18 +63,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.edu.nju.candleflame.microservice</groupId>
-            <artifactId>cloud_client_feign</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
 
     </dependencies>
 
