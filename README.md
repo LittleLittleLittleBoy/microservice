@@ -2,6 +2,8 @@
 
 * SimpleRPC 使用java BIO的通信方式实现一个RPC的例子
 	
+	![](https://raw.githubusercontent.com/candleflame/picGo/master/pic/20180610174021.png)
+	
 	* rpc_interface是公共接口
 	
 		* HelloService
@@ -26,6 +28,8 @@
 
 * Dubbo简单框架
 
+	![](https://raw.githubusercontent.com/candleflame/picGo/master/pic/20180610174122.png)
+
 	* 首先配置zookeeper,开启zookeeper服务
 	* dubbo-api 定义dubbo接口
 	* dubbo-server 实现接口的服务，使用@Service 注解暴露服务,配置文件配置dubbo
@@ -34,6 +38,8 @@
 	* dubbo-admin 主要用于路由规则、动态配置、服务降级、访问控制、权重调整、负载均衡等管理。dubbo的管理界面，下载打包编译dubbo官方项目 https://github.com/apache/incubator-dubbo-ops ,修改/WEB-INF/dubbo.properties文件配置，使用mvn package打包成war,创建tomcat服务器里面运行tomcat服务器就可以
 
 * SpringCloud简单框架:使用的是Dalston版本
+
+	![](https://raw.githubusercontent.com/candleflame/picGo/master/pic/20180610174154.png)
 	
 	Spring Cloud Netflix 是 Spring Cloud 的子项目之一， 主要内容是对 Netflix 公司一系列开源产品的包装， 它为 Spring Boot 应用提供了自配置的 Netflix Oss 整合。 通过一些简单的注解， 开发者就可以快速地 在应用中配置一些常用模块井构建庞大的分布式系统。 它主要提供的模块包括：服务发现（ Eureka ）、断路器（ Hystrix ） 、智能路由（ Zuul ） 、客户端负载均衡（ Ribbon ） 等。
 	
