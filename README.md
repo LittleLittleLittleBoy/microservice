@@ -117,3 +117,19 @@
 
 			1. 添加依赖
 			2. 设置
+
+			
+* RabbitMQ实现消息队列
+
+	安装rabbitMQ 启动rabbitmq-server 启动的时候端口默认是5672，用户名密码默认是guest
+	可以在浏览器中输入http://localhost:15672查看RabbitMQ客户端
+	
+	配置使用
+	
+	1. 添加spring-boot-starter-amqp依赖
+	2. 在application.properties中配置RabbitMQ 设置host port
+	3. 在SpringBoot中开启RabbitMQ支持 @EnableRabbit
+	4. 编写服务消费者,设置@RabbliLisener标签，指定queues
+	5. 添加队列的配置RabbitConfig 声明@Configuration 注入Bean，将消息队列的名字添加进去
+	6. 调用通过RabbitTemplate 调用convertAndSend发送消息	
+	
